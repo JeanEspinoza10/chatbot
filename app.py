@@ -2,6 +2,10 @@ from flask import Flask, request
 import util
 import whatsappservice
 import os
+from flask_cors import CORS
+
+
+
 app = Flask(__name__)
 
 @app.route("/welcome", methods=["GET"])
