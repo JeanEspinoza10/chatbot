@@ -1,11 +1,13 @@
 
 # Identificar el mensaje del usuario #
+import re
 
 def GetTextUser(message):
     text = ""
     typeMessage = message["type"]
     if typeMessage == "text":
         text = (message["text"])["body"]
+        
 
     elif typeMessage == "interactive":
         interactiveObject = message["interactive"]
@@ -36,24 +38,27 @@ def TextMessage(number):
     
     return data
 
+
 def TextPresentacion(number):
     data = {
             "messaging_product": "whatsapp",
             "to": number,
             "type": "text",
             "text": {
-                "body": "Hola, buenas tardes. Desea recibir el menu de hoy:"
+                "body": "Hola, buenas tardes. Puede brindarnos los siguientes datos: \n 1) Nombres \n 2)apellidos \n 3)Correo"
                 }
         }
     return data
 
-def TextFormatMessage(number):
+
+
+def TextFormatMessage(text, number):
     data = {
             "messaging_product": "whatsapp",
             "to": number,
             "type": "text",
             "text": {
-                "body": "Por favor, brindarme su cuenta de red: "
+                "body": f"{text}"
                 }
         }
     return data
@@ -146,3 +151,20 @@ def listaMenu(number):
 
     
     return data
+
+def ObteniendoDatosdeusuario(text, number):
+    # Buscando el nombre
+    patron_nombre = r"1\) (.*)\n"
+    nombre = re.search(patron_nombre, text).group(1)
+    # Buscar los apellidos
+    patron_apellidos = r"2\) (.*)\n"
+    apellidos = re.search(patron_apellidos, text).group(1)
+
+    # Buscar el correo
+    patron_correo = r"3\) (.*)"
+    correo = re.search(patron_correo, text).group(1)
+    # Grabar en la base de datos
+    print(text)
+    respuesta = "Gracias, por la informacion. Desea saber la lista de Menus"
+    data = TextFormatMessage(respuesta, number)
+
