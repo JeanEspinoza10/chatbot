@@ -35,25 +35,36 @@ def ReceivedMessage():
         changes = (entry["changes"])[0]
         value = (changes["value"])
         message = (value["messages"])[0]
-
-        messageUser = (message["text"])["body"]
         number = message["from"]
+        print(number)
         text = util.GetTextUser(message)
-        #GenerateMessage(messageUser, number)
-        print(text)
+        data = GenerateMessage(text, number)
+        whatsappservice.SendMessageWhatsapp(data)
+
+        # messageUser = (message["text"])["body"]
+        # number = message["from"]
+        # text = util.GetTextUser(message)
+        # #GenerateMessage(messageUser, number)
+        # print(text)
 
         return "EVENT_RECEIVED"
     except Exception as e:
         print("Error 1", e)
         return "EVENT_RECEIVED"
  
+
+
+
 def GenerateMessage(messageUser, number):
     data = None
-    if "si" == messageUser or "Si" == messageUser:
-        data = util.TextFormatMessage(number)
-    else:
-        data = util.TextMessage(number)
-    whatsappservice.SendMessageWhatsapp(data)
+    messageUser = messageUser.lower()
+    if "hola" == messageUser or "buenas" == messageUser:
+        data = util.TextPresentacion(number)
+    elif "si" == messageUser:
+        data = util.listaMenu(number)
+        
+    return data
+    
        
     
     
