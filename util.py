@@ -94,56 +94,55 @@ def Buttons(number):
     return data
 
 def listaMenu(number):
-    data = {
-        "messaging_product": "whatsapp",
-        "recipient_type": "individual",
-        "to": number,
-        "type": "interactive",
-        "interactive": {
-            "type": "list",
-            "body": {
-                "text": "Tienes estos platos para el dia de hoy"
-            },
-            "footer": {
-                "text": "Seleciona una opcion"
-            },
-            "action": {
-                "button": "Mirar las opciones",
-                "sections": [
-                    {
-                        "title": "Categoria de productos",
-                        "rows": [
-                            {
-                                "id": "001",
-                                "title": "Traer datos de la base de datos",
-                                "description": "Traer datos de la base de datos"
-                            },
-                            {
-                                "id": "002",
-                                "title": "<SECTION_1_ROW_2_TITLE>",
-                                "description": "<SECTION_1_ROW_2_DESC>"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "Categoria de productos",
-                        "rows": [
-                            {
-                                "id": "003",
-                                "title": "<SECTION_2_ROW_1_TITLE>",
-                                "description": "<SECTION_2_ROW_1_DESC>"
-                            },
-                            {
-                                "id": "<LIST_SECTION_2_ROW_2_ID>",
-                                "title": "<SECTION_2_ROW_2_TITLE>",
-                                "description": "<SECTION_2_ROW_2_DESC>"
-                            }
-                        ]
-                    }
-                ]
-            }
+    data =  {
+    "messaging_product": "whatsapp",
+    "to": number,
+    "type": "interactive",
+    "interactive": {
+        "type": "list",
+        "body": {
+            "text": "✅ I have these options"
+        },
+        "footer": {
+            "text": "Select an option"
+        },
+        "action": {
+            "button": "See options",
+            "sections": [
+                {
+                    "title": "Buy and sell products",
+                    "rows": [
+                        {
+                            "id": "main-buy",
+                            "title": "Buy",
+                            "description": "Buy the best product your home"
+                        },
+                        {
+                            "id": "main-sell",
+                            "title": "Sell",
+                            "description": "Sell your products"
+                        }
+                    ]
+                },
+                {
+                    "title": "📍center of attention",
+                    "rows": [
+                        {
+                            "id": "main-agency",
+                            "title": "Agency",
+                            "description": "Your can visit our agency"
+                        },
+                        {
+                            "id": "main-contact",
+                            "title": "Contact center",
+                            "description": "One of our agents will assist you"
+                        }
+                    ]
+                }
+            ]
         }
     }
+}
 
     
     return data

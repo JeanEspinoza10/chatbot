@@ -36,7 +36,6 @@ def ReceivedMessage():
         value = (changes["value"])
         message = (value["messages"])[0]
         number = message["from"]
-        print(number)
         text = util.GetTextUser(message)
         data = GenerateMessage(text, number)
         whatsappservice.SendMessageWhatsapp(data)
