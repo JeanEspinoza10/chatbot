@@ -1,6 +1,8 @@
 
 # Identificar el mensaje del usuario #
 import re
+from grabardatos import Grabardatos
+grabar = Grabardatos
 
 def GetTextUser(message):
     text = ""
@@ -45,9 +47,10 @@ def TextPresentacion(number):
             "to": number,
             "type": "text",
             "text": {
-                "body": "Hola, buenas tardes. Puede brindarnos los siguientes datos: \n 1) Nombres \n 2)apellidos \n 3)Correo"
+                "body": "Hola, buenas tardes. Puede brindarnos los siguientes datos: 1) Nombres"
                 }
         }
+    
     return data
 
 
@@ -153,18 +156,29 @@ def listaMenu(number):
     return data
 
 def ObteniendoDatosdeusuario(text, number):
-    # Buscando el nombre
-    patron_nombre = r"1\) (.*)\n"
-    nombre = re.search(patron_nombre, text).group(1)
-    # Buscar los apellidos
-    patron_apellidos = r"2\) (.*)\n"
-    apellidos = re.search(patron_apellidos, text).group(1)
+    
+    if "1" in text:
+        nombre = text.replace("1)","")
+        usuario = grabar.create(name=nombre)
+        valor = "2) apellidos"
+    if "2" in text:
+        apellidos = text.replace("2)", "")
+        valor ="3) correo"
+    if "3" in text:
+        correo = text.replace("3)", "")
+        usuariocorreo = grabar.createcorreo(correo=correo)
+        valor = ""
+    
+    # if usuario is not None and  usuariocorreo is not None:
+    #     # Llamar a grabar en base de datos
+    #     print(usuario, usuariocorreo)
+    #     print("Se grabo correctamente")
 
-    # Buscar el correo
-    patron_correo = r"3\) (.*)"
-    correo = re.search(patron_correo, text).group(1)
     # Grabar en la base de datos
-    print(text)
-    respuesta = "Gracias, por la informacion. Desea saber la lista de Menus"
-    data = TextFormatMessage(respuesta, number)
-
+    if valor:
+        respuesta = f"Puede brindar {valor} "
+        data = TextFormatMessage(respuesta, number)
+    else:
+        respuesta = "Gracias por la informacion brindada"
+        data = TextFormatMessage(respuesta, number)
+    return data
